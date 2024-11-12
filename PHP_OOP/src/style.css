@@ -1,0 +1,48 @@
+
+/* Basic styles for the profile page */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f2f5;
+}
+
+.profile-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+}
+
+.profile-card h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.profile-card p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.profile-card h2 {
+    font-size: 20px;
+    margin-top: 15px;
+    color: #333;
+}
+
+.profile-card ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.profile-card ul li {
+    background-color: #e8f0fe;
+    border-radius: 4px;
+    padding: 5px;
+    margin: 5px 0;
+}
