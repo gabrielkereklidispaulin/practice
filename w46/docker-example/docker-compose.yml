@@ -1,0 +1,14 @@
+version: "3.1"
+
+services:
+  php:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      ports:
+        - 80:80
+      volumes:
+        - .:/var/www/html/
+      environment:
+        - compose=true
+      
