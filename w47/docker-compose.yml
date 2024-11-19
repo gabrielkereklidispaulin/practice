@@ -1,0 +1,16 @@
+# vår container version
+version: "3.1"
+
+# de applikationer som körs i vår container (databaser, php, etc)
+services: 
+  php: 
+    build: 
+    # context definierar vilken directory vi ska hämta saker ur, eftersom vi bara är i det här projektet räcker det med .
+      context: .
+    # samma sak här som i förra fallet  
+      dockerfile: Dockerfile 
+    # i vilken port finns vår localhost
+    ports: 
+      - 80:80
+    volumes: 
+      - ./src:/var/www/html/
