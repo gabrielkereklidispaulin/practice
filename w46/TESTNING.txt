@@ -1,0 +1,10 @@
+TESTNING
+
+Enhetstestning
+- Testar enskilda funktioner
+
+Integrationstestning
+- Kontrollerar hur olika delar av systemet fungerar tillsammans
+Funktionell testning
+
+- Validerar systemets funktion från ett användarperspektiv
