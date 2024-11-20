@@ -1,0 +1,226 @@
+OOP fördjupning, GET/POST, Forms, Superglobaler
+
+GET/POST
+
+Vad är htttp? 
+
+Protokollet som används för att kommunicera mellan klient och server. Baserat på request/response. Klient skickar https request och server svarar mer https response. 
+	Nyckelfunktioner: - Get: Hämtar data från servern. Hämta en sida, hämta bilder etc. 
+			  - Post: Skickar data till servern. Skickar användar-input till server och databas. 
+
+https://www.geeksforgeeks.org/difference-between-http-and-https/
+
+GET
+
+GET används för att hämta resurser från server. Data skickas som URL-parametrar vilket gör det synligt i webbadressen. 
+
+Fördelar:
+- Enkelt att implementera och debugga.
+- Kan bokmärkas och cachelagras.
+- Passar för läsoperationer och idempotenta förfrågningar.
+
+Nackdelar: 
+- Data är synlig i URL, gör det olämpligt för känslig information. 
+- Begränsat av längden på URL-strängar, vanligtvis 2048 karaktärer. 
+
+POST 
+
+POST används för att skicka data till servern. Data skickas i HTTP-kroppen, vilket gör det mindre synligt. 
+
+Fördelar: 
+- Lämpligt för att skicka känslig data såsom lösenord eller användarinfo.
+- Obegränsad mängd data kan skickas. 
+- Kan hantera komplex data som filer och formulär. 
+
+Nackdelar: 
+- Kan inte bokmärkas eller chachelagras.
+- Svårare att debugga eftersom data inte är synlig i URL. 
+
+GET VS POST 
+
+GET och POST har olika användningsområden beroende på behovet:
+
+- Använd GET för läsoperationer eller när du vill göra data tillgänglig för bokmärken eller sökningar.
+- Använd POST för att skicka känslig information eller uppdatera data på servern. 
+
+Formulär
+
+Minst 1/3 av allt man gör i webbutveckling kommer antagligen ha att göra med formulär eller vara kopplade till formulär. 
+
+
+Vad används formulär till? 
+
+Formulär används för att samla in och skicka data från användare till server.
+
+Vanliga användningsområden:
+- Registreringsformulär för konton. 
+- Inloggningsformulär för autentisering.
+- Sökrutor för att filtrera innehåll.
+- Filuppladdningsformulär. 
+- Feedback eller kontaktformulär.
+
+Vad är ett formulär i HTML? 
+
+- Består av HTML-element som <input>, <textarea>, <button> etc. 
+- Ett formulär skickar data genom HTTP-metoder som GET eller POST. 
+
+Exempel: 
+
+<form method="POST" action="submit.php">
+
+<label for="name">Namn:</label>
+<input type="text" id="name" name="name">
+
+<button type="submit">Skicka</button>
+
+</form>
+
+Hur hanterar PHP formulärdata? 
+
+PHP använder superglobal variables för att hantera data som skickas via formulär: 
+- $_GET: används för GET-metoden.
+- $_POST: används för POST-metoden. 
+
+Kontrollera vilken HTTP-metod som används: 
+
+<?php
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	echo "Formuläret skickades med POST-metoden.";
+}
+?>
+
+
+Grundläggande säkerhet vid formulärhantering
+
+Vid hantering av användarinmatning är det viktigt att tänka på säkerhet: 
+- Använd htmlspecialchars() för att förhindra XSS-attacker (cross-site-scripting). 
+- Kontrollera och validera all användarinmatning. 
+
+Exempel: 
+<?php
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $name = htmlspecialchars($_POST['name']);
+                echo "Hej, $name!";
+            }
+
+            ?>
+
+koden ovan kontrollerar och validerar all inmatning. 
+
+Vilka delar kan finnas i ett formulär? 
+
+Exempel på olika fälttyper: 
+<form method="POST" action="submit.php">
+<label for="name">Namn:</label>
+    <input type="text" id="name" name="name">
+    <label for="password">Lösenord:</label>
+    <input type="password" id="password" name="password">
+    <label for="gender">Kön:</label>
+    <input type="radio" id="male" name="gender" value="male"> Man
+    <input type="radio" id="female" name="gender" value="female"> Kvinna
+    <button type="submit">Skicka</button>
+
+</form>
+
+Ett HTML-formulär består av flera delar: 
+- <input>:Textfält, lösenord, checkboxar, radioknappar.
+- <textarea>: För att samla in större mängder text.
+- <select>: Dropdown-listor.
+- <button>: För att skicka eller återställa formulär.
+
+SUPERGLOBALS
+
+Superglobals är fördefinierade variabler i PHP som är tillgängliga globalt över hela skriptet. 
+De är associerade med olika typer av data som formulärdata, serverinformation, sessionsdata etc. 
+Exempel på superglobals:  $_GET, $_POST, $_SERVER, $_SESSION, $_COOKIE, $_FILES, $_ENV.
+
+$_GET används för att hämta data som skickas via url-parametrar.
+$_POST används för att hämta data som skickas via POST. 
+
+$_SERVER
+
+Innehåller information om servern och den aktuella begäran. 
+
+Nycklar:
+- $_SERVER['SERVER_NAME']: Serverns namn
+- $_SERVER['REQUEST_METHOD']: HTTP-metoden som används (GET, POST)
+- $_SERVER['REMOTE_ADDR']: Användarens IP-adress.
+
+Exempel: 
+
+<?php
+	echo "Servernamn: " . $_SERVER['SERVER_NAME'];
+	echo "HTTP-metod: " . $_SERVER['REQUEST_METHOD'];
+?>
+
+$_SESSION och $_COOKIE
+
+$_SESSION används för att lagra data mellan sidladdningar för n användare. 
+
+$_COOKIE används för att lagra data på användarens dator som kan hämtas vid framtida besök. 
+
+Exempel: 
+<?php
+	session_start();
+	$_SESSION['username'] = 'John';
+	echo "Välkommen, " . $_SESSION['username'];
+?>
+
+$_FILES
+
+används för att hantera filuppladningar via formulär. 
+
+Extra OOP fördjupning med dependency injection som exempel. 
+
+Polymorfism och interface i PHP.
+
+Polymorfism låter oss använda samma metod eller funktionalitet för olika typer av objekt. 
+I PHP uppnås detta genom arv eller implementation av ett interface. 
+
+Interface: 
+Definierar en uppsättning metoder som en klass måste implementera. 
+Det innehåller bara metoddeklarationer.
+
+Varför används polymorphism och interface? 
+Gör koden mer flexibel och återanvändbar.
+Tillåter utbyte av implementationer utan att ändra den kod som använder dem. 
+
+
+Dependency injection och interface. 
+
+(DI) innebär att vi skickar beroenden (objekt) till en klass istället för att skapa dem direkt i klassen. 
+
+Fördelar med DI: 
+- Lättare att byta implementationer. 
+- Gör koden mer testbar.
+- Främjar löst kopplad design. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
