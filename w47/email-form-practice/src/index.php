@@ -14,7 +14,7 @@ function validate_email($input)
 {
   if (filter_var($input, FILTER_VALIDATE_EMAIL)) {
     return $input;
-  
+
   }
   return "Invalid email";
 }
